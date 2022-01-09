@@ -65,7 +65,9 @@ WSGI_APPLICATION = 'backend.config.wsgi.application'
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Database
-DATABASES = {}
+DATABASES = {
+    'default': {}
+}
 
 if DEBUG:
     DATABASES = {
@@ -146,6 +148,5 @@ MEDIA_URL = '/media/'
 # Heroku configuration
 if not DEBUG:
     django_heroku.settings(locals())
-    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
