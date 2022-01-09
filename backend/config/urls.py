@@ -13,7 +13,7 @@ router = routers.SimpleRouter()
 router.register(prefix=r'posts', viewset=posts_views.PostsViewSet)
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/admin', pernament=True)),
+    path('', RedirectView.as_view(url='/admin')),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
