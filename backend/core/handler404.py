@@ -1,9 +1,11 @@
+"""
+    Модуль редиректа если 404
+"""
 from django.shortcuts import redirect
-from django.views.generic import RedirectView
 
 
-def view_404(request, *args, **kwargs):
-    url = request.path
-    if url.find('static') == -1 and url.find('media') == -1:
-        return redirect(to='admin/')
-
+def view_404(request, exception):
+    """
+        Метод редиректа
+    """
+    return redirect(to='/admin/')

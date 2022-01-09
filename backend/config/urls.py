@@ -2,15 +2,13 @@
 
 from django.contrib import admin
 from django.conf.urls.static import static
-from django.shortcuts import redirect
 from django.urls import path, include, re_path
-from django.views.generic import RedirectView
 from django.views.static import serve
 from rest_framework import routers
+from rest_framework_simplejwt import views as jwt_views
 from backend.blog.posts import views as posts_views
 from backend.config import settings
 from backend.core.handler404 import view_404
-from rest_framework_simplejwt import views as jwt_views
 
 router = routers.SimpleRouter()
 router.register(prefix=r'posts', viewset=posts_views.PostsViewSet)
@@ -26,4 +24,3 @@ urlpatterns = [
 handler404 = view_404
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

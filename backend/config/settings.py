@@ -11,7 +11,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(dotenv_path=find_dotenv(), verbose=False, override=True)
 
 SECRET_KEY = os.getenv('SECRET_KEY', '')
-DEBUG = os.getenv('DEBUG', False) == 'True'
+DEBUG = os.getenv('DEBUG', 'False')
+DEBUG = DEBUG == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -157,4 +158,3 @@ MEDIA_URL = '/media/'
 if not DEBUG:
     django_heroku.settings(locals())
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
