@@ -129,8 +129,7 @@ dmypy.json
 .pyre/
 .idea/
 
-media/posts
-media/users
+media/*
 staticfiles
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 

@@ -23,13 +23,6 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'publish_date')
     inlines = [PicturesInline]
 
-    def save_model(self, request, obj, form, change):
-        obj.save()
-        pictures = request.FILES.getlist('pictures')
-        for picture in pictures:
-            PostPicture.objects.create(post=obj, image=picture)
-        return super().save_model(request, obj, form, change)
-
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
