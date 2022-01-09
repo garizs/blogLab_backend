@@ -40,7 +40,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
+MIDDLEWARE_CLASSES = (
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+)
 
 ROOT_URLCONF = 'backend.config.urls'
 
@@ -66,7 +72,9 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Database
 DATABASES = {
-    'default': {}
+    'default': {
+        'CONN_MAX_AGE': 500
+    }
 }
 
 if DEBUG:
@@ -126,7 +134,7 @@ REST_FRAMEWORK = {
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -148,5 +156,8 @@ MEDIA_URL = '/media/'
 # Heroku configuration
 if not DEBUG:
     django_heroku.settings(locals())
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
