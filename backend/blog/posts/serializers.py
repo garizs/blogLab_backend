@@ -1,6 +1,7 @@
 """
     Сериализаторы API постов
 """
+
 from rest_framework import serializers
 
 from backend.blog.models import PostPicture, Post
@@ -10,6 +11,7 @@ class PostPictureSerializer(serializers.ModelSerializer):
     """
         Серилизатор изображений постов
     """
+
     class Meta:
         model = PostPicture
         fields = ('images',)

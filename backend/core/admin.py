@@ -61,8 +61,10 @@ class UserProfileAdmin(admin.ModelAdmin):
 
     @display(ordering='user__username', description=_('Имя пользователя'))
     def get_username(self, obj):
+        """Получение никнейма для отображения"""
         return obj.user.username
 
     @display(description=_('Электронная почта'))
     def get_email(self, obj):
+        """Получение почты для отображения"""
         return obj.user.email

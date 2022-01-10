@@ -1,3 +1,4 @@
+"""Модуль пользователей"""
 from django.contrib.auth.models import User
 from django.db.models import Q
 from rest_framework import viewsets
@@ -5,13 +6,17 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from backend.blog.models import UserProfile
+from backend.blog.users.serializers import UsersSerializer
 
 
-class UsersView(viewsets.ViewSet):
+class UsersView(viewsets.GenericViewSet):
+    """Класс для работы с пользователями"""
+    serializer_class = UsersSerializer
 
     @classmethod
     @action(detail=False, methods=['post'])
     def register(cls, request):
+        """Регистрация пользователей"""
         if request.method == 'POST':
             username = request.POST['username']
             email = request.POST['email']
@@ -29,6 +34,5 @@ class UsersView(viewsets.ViewSet):
                 else:
                     UserProfile.objects.create(user=user)
                 return Response(status=201, data={'status': 'Успешно создан'})
-            else:
-                return Response(status=400, data={'error': 'Пользователь уже зарегистрирован!'})
+            return Response(status=400, data={'error': 'Пользователь уже зарегистрирован!'})
         return Response(status=400, data={'error': 'Неверный запрос!'})

@@ -12,5 +12,4 @@ def view_404(request, exception):
     url = request.path
     if url.find('static') == -1 and url.find('media') == -1:
         return redirect(to='/admin/')
-    else:
-        return HttpResponseNotFound(exception)
+    return HttpResponseNotFound(exception)

@@ -16,7 +16,6 @@ DEBUG = DEBUG == 'True'
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -31,6 +30,7 @@ INSTALLED_APPS = [
     'backend.core',
     'rest_framework',
     'corsheaders',
+    'drf_spectacular',
 ]
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -54,8 +54,7 @@ ROOT_URLCONF = 'backend.config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'frontend', 'build')]
-        ,
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -64,6 +63,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'staticfiles': 'django.templatetags.static',
+            }
         },
     },
 ]
@@ -112,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 
 LANGUAGE_CODE = 'ru-ru'
@@ -130,6 +131,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 # Static files (CSS, JavaScript, Images)
@@ -147,6 +149,12 @@ STATICFILES_FINDERS = (
 CORS_ORIGIN_WHITELIST = [
     'https://bloglab-backend.herokuapp.com'
 ]
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Blog Lab',
+    'DESCRIPTION': 'Blog APIs',
+    'VERSION': '2.0.0',
+}
 
 # Default primary key field type
 

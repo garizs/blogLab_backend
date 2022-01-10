@@ -1,6 +1,7 @@
 """
     API получения постов
 """
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -11,10 +12,11 @@ from backend.blog.posts.serializers import PostBasicSerializer
 
 class PostsViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
     """
-        View получения постов
+        Работа с постами
     """
     serializer_class = PostBasicSerializer
     queryset = Post.objects.all()
+    http_method_names = ['get', 'post']
 
     @action(detail=False, methods=['get'])
     def get_main_posts(self, request):
@@ -26,10 +28,15 @@ class PostsViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
         serializer = self.get_serializer(main_posts, many=True)
         return Response(serializer.data)
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(name='type', description='Тип документа', required=True, type=str),
+        ],
+    )
     @action(detail=False, methods=['get'])
     def get_posts_by_type(self, request):
         """
-            Получение постов по типу
+        Получение постов по типу
         """
         post_type = request.query_params.get('type')
         posts = Post.objects.filter(post_type=post_type.upper())
