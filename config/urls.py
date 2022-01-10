@@ -9,14 +9,14 @@ from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView
 from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
 
-from backend.blog.posts import views as posts_views
-from backend.blog.users import views as users_views
-from backend.config import settings
-from backend.core.handler404 import view_404
+from apps.posts import views as posts_views
+from apps.auth_users import views as auth
+from config import settings
+from apps.core.handler404 import view_404
 
 router = routers.SimpleRouter()
 router.register(prefix=r'posts', viewset=posts_views.PostsViewSet)
-router.register(prefix=r'users', viewset=users_views.UsersView, basename='user')
+router.register(prefix=r'auth', viewset=auth.UsersView, basename='user')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

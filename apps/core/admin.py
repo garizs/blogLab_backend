@@ -5,7 +5,8 @@ from django.contrib import admin
 from django.contrib.admin import display
 from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
-from backend.blog.models import Post, UserProfile, PostPicture
+from apps.posts.models import Post, PostPicture
+from apps.users.models import UserProfile
 
 
 class PicturesInline(admin.StackedInline):

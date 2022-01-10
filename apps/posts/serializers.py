@@ -4,7 +4,7 @@
 
 from rest_framework import serializers
 
-from backend.blog.models import PostPicture, Post
+from apps.posts.models import PostPicture, Post
 
 
 class PostPictureSerializer(serializers.ModelSerializer):

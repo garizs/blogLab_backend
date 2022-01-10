@@ -7,7 +7,7 @@ from pathlib import Path
 import django_heroku
 from dotenv import load_dotenv, find_dotenv
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(dotenv_path=find_dotenv(), verbose=False, override=True)
 
 SECRET_KEY = os.getenv('SECRET_KEY', '')
@@ -26,11 +26,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_cleanup.apps.CleanupConfig',
-    'backend.blog',
-    'backend.core',
     'rest_framework',
     'corsheaders',
     'drf_spectacular',
+    'apps.posts',
+    'apps.core',
+    'apps.auth_users',
+    'apps.users'
 ]
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -49,7 +51,7 @@ MIDDLEWARE_CLASSES = (
     'whitenoise.middleware.WhiteNoiseMiddleware',
 )
 
-ROOT_URLCONF = 'backend.config.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'backend.config.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Database

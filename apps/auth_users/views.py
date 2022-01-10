@@ -5,8 +5,8 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from backend.blog.models import UserProfile
-from backend.blog.users.serializers import UsersSerializer
+from apps.users.models import UserProfile
+from apps.auth_users.serializers import UsersSerializer
 
 
 class UsersView(viewsets.GenericViewSet):

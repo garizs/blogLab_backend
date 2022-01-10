@@ -6,8 +6,8 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from backend.blog.models import Post, FavouritePosts
-from backend.blog.posts.serializers import PostBasicSerializer
+from apps.posts.models import Post, FavouritePosts
+from apps.posts.serializers import PostBasicSerializer
 
 
 class PostsViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
