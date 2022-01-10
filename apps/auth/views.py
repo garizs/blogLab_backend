@@ -6,7 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from apps.users.models import UserProfile
-from apps.auth_users.serializers import UsersSerializer
+from apps.auth.serializers import UsersSerializer
 
 
 class UsersView(viewsets.GenericViewSet):

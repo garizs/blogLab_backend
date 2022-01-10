@@ -10,7 +10,7 @@ from rest_framework import routers
 from rest_framework_simplejwt import views as jwt_views
 
 from apps.posts import views as posts_views
-from apps.auth_users import views as auth
+from apps.auth import views as auth
 from config import settings
 from apps.core.handler404 import view_404
 
