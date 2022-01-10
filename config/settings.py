@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'apps.posts',
     'apps.core',
     'apps.auth',
-    'apps.users'
+    'apps.users',
+    'apps.curators',
 ]
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -156,6 +157,7 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'Blog Lab',
     'DESCRIPTION': 'Blog APIs',
     'VERSION': '2.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 # Default primary key field type

@@ -15,3 +15,8 @@ class UsersConfig(AppConfig):
 class AuthConfig(AppConfig):
     name = 'apps.auth'
     label = 'users_auth'
+
+
+class CuratorsConfig(AppConfig):
+    name = 'apps.curators'
+    verbose_name = _("Кураторы")

@@ -10,6 +10,7 @@ from apps.posts.models import Post, FavouritePosts
 from apps.posts.serializers import PostBasicSerializer
 
 
+@extend_schema(tags=['Посты'])
 class PostsViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
     """
         Работа с постами
