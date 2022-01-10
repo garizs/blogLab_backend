@@ -129,6 +129,10 @@ dmypy.json
 .pyre/
 .idea/
 
+media/curators
+media/users
+media/posts
+!media/users/default.svg
 
 staticfiles/*
 !/staticfiles/favicon.ico

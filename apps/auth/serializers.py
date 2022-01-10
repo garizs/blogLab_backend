@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.fields import CharField, FileField
 
 
-class UsersSerializer(serializers.Serializer):
+class UsersAuthSerializer(serializers.Serializer):
     """Сериализатор пользователей"""
     username = CharField(label='Юзернейм', required=True)
     password = CharField(label='Пароль', required=True)

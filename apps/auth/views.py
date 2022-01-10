@@ -8,13 +8,13 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from apps.users.models import UserProfile
-from apps.auth.serializers import UsersSerializer
+from apps.auth.serializers import UsersAuthSerializer
 
 
 @extend_schema(tags=['Аунтентификация'])
 class UsersView(viewsets.GenericViewSet):
     """Класс для работы с пользователями"""
-    serializer_class = UsersSerializer
+    serializer_class = UsersAuthSerializer
 
     @classmethod
     @action(detail=False, methods=['post'])

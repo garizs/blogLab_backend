@@ -11,13 +11,15 @@ from rest_framework import routers
 from apps.curators import views as curators_views
 from apps.posts import views as posts_views
 from apps.auth import views as auth
+from apps.users import views as user_views
 from config import settings
 from apps.core.handler404 import view_404
 
 router = routers.SimpleRouter()
 router.register(prefix=r'posts', viewset=posts_views.PostsViewSet)
-router.register(prefix=r'auth', viewset=auth.UsersView, basename='user')
+router.register(prefix=r'auth', viewset=auth.UsersView, basename='auth')
 router.register(prefix=r'curators', viewset=curators_views.CuratorsViewSet, basename='curators')
+router.register(prefix=r'users', viewset=user_views.UsersView, basename='users')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
