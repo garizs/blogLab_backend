@@ -1,5 +1,6 @@
 """Модуль пользователей"""
 from django.contrib.auth.models import User
+from django.core.validators import validate_email
 from django.db.models import Q
 from drf_spectacular.utils import extend_schema
 from rest_framework import viewsets
@@ -21,17 +22,18 @@ class UsersView(viewsets.GenericViewSet):
     def register(cls, request):
         """Регистрация пользователей"""
         if request.method == 'POST':
-            username = request.POST['username']
-            email = request.POST['email']
+            username = request.data['username']
+            email = request.data['email']
+            validate_email(email)
             is_found = UserProfile.objects.filter(Q(user__username=username) | Q(user__email=email))
             if not is_found:
-                password = request.POST['password']
-                first_name = request.POST['first_name']
-                last_name = request.POST['last_name']
+                password = request.data['password']
+                first_name = request.data.get('first_name')
+                last_name = request.data.get('last_name')
                 user = User.objects.create_user(username=username, email=email,
                                                 password=password, first_name=first_name,
                                                 last_name=last_name)
-                profile_picture = request.POST.get('profile_picture')
+                profile_picture = request.data.get('profile_picture')
                 if profile_picture:
                     UserProfile.objects.create(user=user, profile_picture=profile_picture)
                 else:

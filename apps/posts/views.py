@@ -31,7 +31,7 @@ class PostsViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
 
     @extend_schema(
         parameters=[
-            OpenApiParameter(name='type', description='Тип документа', required=True, type=str),
+            OpenApiParameter(name='type', location='query', description='Тип документа', required=True, type=str),
         ],
     )
     @action(detail=False, methods=['get'])
@@ -45,6 +45,19 @@ class PostsViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
         return Response(serializer.data)
 
     @action(detail=False, methods=['post'], permission_classes=(permissions.IsAuthenticated,))
+    def add_to_favourite(self, request):
+        user = request.user.userprofile
+        post_id = request.data.get('post_id')
+
+        FavouritePosts.objects.update_or_create(user=user, post_id=post_id)
+
+        favourite_post = FavouritePosts.objects.filter(user=user, post_id=post_id).values('post_id')
+        data = Post.objects.filter(id__in=favourite_post).first()
+
+        serializer = self.get_serializer(data, many=False)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'], permission_classes=(permissions.IsAuthenticated,))
     def get_favourites_posts(self, request):
         """
             Получение избранных постов

@@ -8,9 +8,9 @@ class UsersAuthSerializer(serializers.Serializer):
     username = CharField(label='Юзернейм', required=True)
     password = CharField(label='Пароль', required=True)
     email = CharField(label='Почта', required=True)
-    first_name = CharField(label='Имя', required=True)
-    last_name = CharField(label='Фамилия', required=True)
-    profile_picture = FileField(label='Аватар', required=True)
+    first_name = CharField(label='Имя', required=False)
+    last_name = CharField(label='Фамилия', required=False)
+    profile_picture = FileField(label='Аватар', required=False)
 
     def create(self, validated_data):
         pass
