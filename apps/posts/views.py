@@ -5,6 +5,7 @@ from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.status import HTTP_301_MOVED_PERMANENTLY
 
 from apps.posts.models import Post, FavouritePosts
 from apps.posts.serializers import PostBasicSerializer
@@ -18,6 +19,15 @@ class PostsViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
     serializer_class = PostBasicSerializer
     queryset = Post.objects.all()
     http_method_names = ['get', 'post']
+
+    def create(self, request, *args, **kwargs):
+        return Response(data={'status': 'API недоступно'}, status=HTTP_301_MOVED_PERMANENTLY)
+
+    def list(self, request, *args, **kwargs):
+        return Response(data={'status': 'API недоступно'}, status=HTTP_301_MOVED_PERMANENTLY)
+
+    def retrieve(self, request, *args, **kwargs):
+        return Response(data={'status': 'API недоступно'}, status=HTTP_301_MOVED_PERMANENTLY)
 
     @action(detail=False, methods=['get'])
     def get_main_posts(self, request):
