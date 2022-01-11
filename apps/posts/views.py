@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_301_MOVED_PERMANENTLY
 
 from apps.posts.models import Post, FavouritePosts
-from apps.posts.serializers import PostBasicSerializer
+from apps.posts.serializers import PostBasicSerializer, PostFavouriteSerializer
 
 
 @extend_schema(tags=['Посты'])
@@ -54,10 +54,11 @@ class PostsViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
         serializer = self.get_serializer(posts, many=True)
         return Response(serializer.data)
 
-    @action(detail=False, methods=['post'], permission_classes=(permissions.IsAuthenticated,))
+    @action(detail=False, methods=['post'], permission_classes=(permissions.IsAuthenticated,),
+            serializer_class=PostFavouriteSerializer)
     def add_to_favourite(self, request):
         user = request.user.userprofile
-        post_id = request.data.get('post_id')
+        post_id = request.data.get('id')
 
         FavouritePosts.objects.update_or_create(user=user, post_id=post_id)
 

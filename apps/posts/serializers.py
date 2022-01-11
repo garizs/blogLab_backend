@@ -27,3 +27,14 @@ class PostBasicSerializer(serializers.ModelSerializer):
         model = Post
         fields = ('id', 'title', 'author', 'publish_date', 'text', 'images',)
         read_only_fields = ('title', 'author', 'publish_date', 'text')
+
+
+class PostFavouriteSerializer(PostBasicSerializer):
+    id = serializers.IntegerField(required=True)
+
+    class Meta:
+        model = Post
+        fields = ('id', 'title', 'author', 'publish_date', 'text', 'images',)
+        read_only_fields = ('title', 'author', 'publish_date', 'text')
+
+
