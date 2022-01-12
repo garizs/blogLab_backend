@@ -53,17 +53,22 @@ class PostsViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
 
     @action(detail=False, methods=['post'], permission_classes=(permissions.IsAuthenticated,),
             serializer_class=PostFavouriteSerializer)
-    def add_to_favourite(self, request):
+    def add_remove_to_favourite(self, request):
         user = request.user.userprofile
         post_id = request.data.get('id')
 
-        FavouritePosts.objects.update_or_create(user=user, post_id=post_id)
+        action_code = request.data.get('action')
+        if action_code == 'add':
+            FavouritePosts.objects.update_or_create(user=user, post_id=post_id)
 
-        favourite_post = FavouritePosts.objects.filter(user=user, post_id=post_id).values('post_id')
-        data = Post.objects.filter(id__in=favourite_post).first()
+            favourite_post = FavouritePosts.objects.filter(user=user, post_id=post_id).values('post_id')
+            data = Post.objects.filter(id__in=favourite_post).first()
+            serializer = self.get_serializer(data, many=False)
+            return Response(serializer.data)
 
-        serializer = self.get_serializer(data, many=False)
-        return Response(serializer.data)
+        if action_code == 'delete':
+            FavouritePosts.objects.filter(user=user, post_id=post_id).first().delete()
+            return Response(status=200, data='Успешно удалено')
 
     @action(detail=False, methods=['get'], permission_classes=(permissions.IsAuthenticated,))
     def get_favourites_posts(self, request):

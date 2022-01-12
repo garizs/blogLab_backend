@@ -31,6 +31,7 @@ class PostBasicSerializer(serializers.ModelSerializer):
 
 class PostFavouriteSerializer(PostBasicSerializer):
     id = serializers.IntegerField(required=True)
+    action_code = serializers.CharField(required=True, write_only=True)
 
     class Meta:
         model = Post
