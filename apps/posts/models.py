@@ -38,6 +38,7 @@ class Post(models.Model):
         verbose_name_plural = _('Посты')
         ordering = ['pk']
 
+
 class PostPicture(models.Model):
     """
         Модель изображений постов
@@ -50,13 +51,10 @@ class PostPicture(models.Model):
     def __str__(self):
         return self.post.title
 
-    def clean(self):
-        if self.images.width > 600 or self.images.height > 600:
-            raise forms.ValidationError('Недопустимый размер')
-
     class Meta:
         verbose_name = _('Картинка статьи')
         verbose_name_plural = _('Картинки статьи')
+
 
 class FavouritePosts(models.Model):
     """
