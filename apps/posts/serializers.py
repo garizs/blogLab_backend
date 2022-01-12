@@ -36,5 +36,3 @@ class PostFavouriteSerializer(PostBasicSerializer):
         model = Post
         fields = ('id', 'title', 'author', 'publish_date', 'text', 'images',)
         read_only_fields = ('title', 'author', 'publish_date', 'text')
-
-

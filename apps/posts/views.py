@@ -26,9 +26,6 @@ class PostsViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
     def list(self, request, *args, **kwargs):
         return Response(data={'status': 'API недоступно'}, status=HTTP_301_MOVED_PERMANENTLY)
 
-    def retrieve(self, request, *args, **kwargs):
-        return Response(data={'status': 'API недоступно'}, status=HTTP_301_MOVED_PERMANENTLY)
-
     @action(detail=False, methods=['get'])
     def get_main_posts(self, request):
         """

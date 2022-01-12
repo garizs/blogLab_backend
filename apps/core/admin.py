@@ -104,4 +104,3 @@ class CuratorAdmin(admin.ModelAdmin):
     def get_main(self, obj):
         """Получение почты для отображения"""
         return obj.is_main
-
