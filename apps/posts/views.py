@@ -54,6 +54,9 @@ class PostsViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
     @action(detail=False, methods=['post'], permission_classes=(permissions.IsAuthenticated,),
             serializer_class=PostFavouriteSerializer)
     def add_remove_to_favourite(self, request):
+        """
+        Добавить или убрать из избранного
+        """
         user = request.user.userprofile
         post_id = request.data.get('id')
 
