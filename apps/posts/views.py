@@ -60,9 +60,10 @@ class PostsViewSet(viewsets.ModelViewSet):  # pylint: disable=too-many-ancestors
         user = request.user.userprofile
         post_id = request.data.get('id')
 
-        action_code = request.data.get('action')
+        action_code = request.data.get('action_code')
         if action_code == 'add':
-            FavouritePosts.objects.update_or_create(user=user, post_id=post_id)
+            post = Post.objects.filter(id=post_id).first()
+            FavouritePosts.objects.update_or_create(user=user, post=post)
 
             favourite_post = FavouritePosts.objects.filter(user=user, post_id=post_id).values('post_id')
             data = Post.objects.filter(id__in=favourite_post).first()
