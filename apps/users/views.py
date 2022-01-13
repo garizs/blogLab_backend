@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import permissions, viewsets
@@ -32,7 +33,11 @@ class UsersView(viewsets.GenericViewSet):
         if last_name:
             user.last_name = last_name
         email = data.get('email')
-        if email and validate_email(email):
+        if email:
+            try:
+                validate_email(email)
+            except ValidationError:
+                return Response(status=400, data='Некорректная почта')
             user.email = email
         password = data.get('password')
         if password:
@@ -40,7 +45,8 @@ class UsersView(viewsets.GenericViewSet):
         user.save()
         profile_picture = data.get('profile_picture')
         if profile_picture:
-            user_profile.update(profile_picture=profile_picture)
+            user_profile.profile_picture = profile_picture
+            user_profile.save()
         serializer = self.get_serializer(user_profile, many=False)
         return Response(serializer.data)
 
